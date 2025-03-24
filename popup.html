@@ -11,7 +11,10 @@
     
     <div class="input-section">
       <label for="quote-text">输入文字内容：</label>
-      <textarea id="quote-text" placeholder="请粘贴您想要转换为图片的文字（最多200字）" maxlength="200"></textarea>
+      <div class="input-controls">
+        <textarea id="quote-text" placeholder="请粘贴您想要转换为图片的文字（最多200字）" maxlength="200"></textarea>
+        <button id="summarize-btn" class="secondary-btn">DeepSeek R1总结</button>
+      </div>
       <div class="char-count"><span id="char-counter">0</span>/200</div>
     </div>
     

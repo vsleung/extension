@@ -15,7 +15,54 @@ document.addEventListener('DOMContentLoaded', function() {
   const saveBtn = document.getElementById('save-btn');
   const resultCanvas = document.getElementById('result-canvas');
   const resultImage = document.getElementById('result-image');
-
+  const summarizeBtn = document.getElementById('summarize-btn');
+  
+  // 添加总结功能
+  summarizeBtn.addEventListener('click', async function() {
+    const text = quoteText.value.trim();
+    if (!text) {
+      alert('请输入需要总结的文字内容');
+      return;
+    }
+    
+    try {
+      summarizeBtn.disabled = true;
+      summarizeBtn.textContent = '正在总结...';
+      
+      const response = await fetch('http://localhost:3001/api/summarize', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({ text }),
+        timeout: 60000
+      }).catch(error => {
+        throw new Error('无法连接到服务器，请确保本地服务已启动');
+      });
+      
+      if (!response.ok) {
+        throw new Error(`服务器响应错误: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.success && data.summary) {
+        quoteText.value = data.summary;
+        charCounter.textContent = data.summary.length;
+        updatePreview();
+      } else {
+        throw new Error(data.error || '总结失败');
+      }
+      
+    } catch (error) {
+      alert(error.message || '总结失败，请稍后重试');
+    } finally {
+      summarizeBtn.disabled = false;
+      summarizeBtn.textContent = 'DeepSeek R1总结';
+    }
+  });
+  
   // 预设样式配置
   const presets = {
     'simple-white': {

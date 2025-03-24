@@ -124,3 +124,30 @@ button:disabled {
   border: 1px solid #ddd;
   border-radius: 4px;
 }
+
+.input-controls {
+  position: relative;
+  margin-bottom: 4px;
+}
+
+.secondary-btn {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.secondary-btn:hover {
+  background: #45a049;
+}
+
+.secondary-btn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
